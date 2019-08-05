@@ -1,0 +1,32 @@
+.Add {
+    width: 350px;
+    margin: auto;
+    border-radius: 5px;
+    padding: 10px 20px;
+    background-color: white;
+}
+input{
+    margin:  1rem 0 1rem 0;
+    border-radius: 5px;
+}
+Button{
+    border-radius: 5px;
+    
+    background-color: blueviolet;
+    border-color: blueviolet
+}
+
+.box___title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title___first{
+    display: flex;
+    align-items: center;
+}
+
+.title___first label{
+    margin-left: 10px;
+}
