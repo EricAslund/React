@@ -4,11 +4,11 @@ import './style.css';
 
 // import { Container } from './styles';
 
-const addRepositories = () => (
+const addRepositories = (props) => (
     <div className='Add'>
-        <Form >
+        <Form onSubmit={props.find}>
             <Form.Group widths="equal">
-                <div class="field">
+                <div className="field">
                     <p> menssagem de situação</p>
                     <div className="box___title">
                         <div className="title___first">
@@ -23,8 +23,10 @@ const addRepositories = () => (
                             4
                         </span>
                     </div>
-                    <input type="text" placeholder="facebook/react" name="Nome" />
-                    <Button>Add</Button>
+                    <div className="box__input">
+                        <input type="text" placeholder="facebook/react" name="Nome" />
+                        <Button>Add</Button>
+                    </div>
                 </div>
             </Form.Group>
         </Form>

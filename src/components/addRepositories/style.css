@@ -1,6 +1,6 @@
 .Add {
     width: 350px;
-    margin: auto;
+    margin: 20px auto 20px auto ;
     border-radius: 5px;
     padding: 10px 20px;
     background-color: white;
@@ -11,9 +11,8 @@ input{
 }
 Button{
     border-radius: 5px;
-    
-    background-color: blueviolet;
-    border-color: blueviolet
+    background-color: blueviolet !important;
+    border-color: blueviolet !important;
 }
 
 .box___title{
@@ -29,4 +28,9 @@ Button{
 
 .title___first label{
     margin-left: 10px;
+}
+.box__input{
+    display: flex;
+    align-items: center; 
+    margin-top: 5px;
 }

@@ -1,14 +1,10 @@
 import React from 'react';
-
-
-import Add from './components/addRepositories';
-import Repositorios from './components/repositories';
+import Main from './pages/Main';
 
 function App() {
   return (
-    <div class="App">
-      <Add />
-      <Repositorios />
+    <div className="App">
+      <Main />
     </div>
   );
 }
