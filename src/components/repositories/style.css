@@ -1,0 +1,23 @@
+.list___title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.list___first{
+    display: flex;
+    align-items: center;
+}
+.icons{
+    text-align: end;
+}
+.empresa{
+    text-align: center;
+}
+.cardHeader{
+    font-size: xx-large;
+    padding-top: 6px;    
+}
+.column{
+    margin-top: 15px;
+}
