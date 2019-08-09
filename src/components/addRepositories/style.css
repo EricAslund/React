@@ -34,3 +34,17 @@ Button{
     align-items: center; 
     margin-top: 5px;
 }
+.inputNull{
+ background-color: orange;
+ color: white;
+ text-align: center;
+ border-radius: 5px;
+ border-color: orange;
+}
+.counter{
+    color: blueviolet;
+}
+.pMassage{
+    height: 15px;
+   text-align: center;
+}

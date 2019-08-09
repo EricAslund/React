@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Form } from "semantic-ui-react";
+import { Button, Form, Message } from "semantic-ui-react";
 import './style.css';
+import api from '../../api';
 
 // import { Container } from './styles';
 
@@ -9,25 +10,59 @@ class addRepositories extends Component {
         super(props);
         this.state = {
             input: '',
+            shown: true,
+            emptyRepo: true,
+            mess: true,
         };
     }
 
-    handleSubmit = (event) => {
-
+    handleSubmit = async (event) => {
         event.preventDefault();
-        this.props.addRepository(this.state.input)
+        if (this.state.input.length === 0) {
+            this.setState({ shown: !this.state.shown })
+            setTimeout(() => {
+                this.setState({ shown: !this.state.shown });
+            }, 3000);
+            return;
+        } else {
+            try {
+                const reponse = await api.get(`/repos/${this.state.input}`);
+                this.props.addRepository(this.state.input)
+            } catch (err) {
+                this.handleMassage3();
+            }
+        }
+    }
 
-
+    handleMassage3 = () => {
+        this.setState({ emptyRepo: !this.state.emptyRepo })
+        setTimeout(() => {
+            this.setState({ emptyRepo: !this.state.emptyRepo });
+        }, 3000);
     }
 
 
     render() {
+
+        const { shown } = this.state;
+        const { emptyRepo } = this.state;
+        const { mess } = this.state;
         return (
             <div className='Add'>
                 <Form onSubmit={this.handleSubmit} >
                     <Form.Group widths="equal">
                         <div className="field">
-                            <p> menssagem de situação</p>
+                            <p className="pMassage"><strong>
+                                {!shown ?
+                                    <span className="inputNull">&nbsp;&nbsp;&nbsp; Por favor digite um repositorio &nbsp;&nbsp;&nbsp; </span>
+                                    : null}
+                                {!emptyRepo ?
+                                    <span className="inputNull">&nbsp;&nbsp;&nbsp; O repositorio não existe &nbsp;&nbsp;&nbsp;</span>
+                                    : null}
+                                {!mess ?
+                                    <span className="inputNull">&nbsp;&nbsp;&nbsp; já tem esse repositório &nbsp;&nbsp;&nbsp;</span>
+                                    : null}
+                            </strong></p>
                             <div className="box___title">
                                 <div className="title___first">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 53.304 52">
@@ -37,8 +72,7 @@ class addRepositories extends Component {
                                     </svg>
                                     <label>Repositórios</label><br />
                                 </div>
-                                <span>
-                                    4</span>
+                                <span className="counter"><strong>{this.props.counting}</strong> </span>
                             </div>
                             <div className="box__input">
                                 <input type="text" placeholder="facebook/react" name="Nome" onChange={evento => this.setState({ input: evento.target.value })} />
