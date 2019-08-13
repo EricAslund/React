@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Form, Message } from "semantic-ui-react";
+import { Button, Form } from "semantic-ui-react";
 import './style.css';
-import api from '../../api';
 
 // import { Container } from './styles';
 
@@ -11,8 +10,7 @@ class addRepositories extends Component {
         this.state = {
             input: '',
             shown: true,
-            emptyRepo: true,
-            mess: true,
+
         };
     }
 
@@ -25,28 +23,16 @@ class addRepositories extends Component {
             }, 3000);
             return;
         } else {
-            try {
-                const reponse = await api.get(`/repos/${this.state.input}`);
-                this.props.addRepository(this.state.input)
-            } catch (err) {
-                this.handleMassage3();
-            }
+            this.props.addRepository(this.state.input)
         }
     }
 
-    handleMassage3 = () => {
-        this.setState({ emptyRepo: !this.state.emptyRepo })
-        setTimeout(() => {
-            this.setState({ emptyRepo: !this.state.emptyRepo });
-        }, 3000);
-    }
 
 
     render() {
 
         const { shown } = this.state;
-        const { emptyRepo } = this.state;
-        const { mess } = this.state;
+
         return (
             <div className='Add'>
                 <Form onSubmit={this.handleSubmit} >
@@ -56,11 +42,11 @@ class addRepositories extends Component {
                                 {!shown ?
                                     <span className="inputNull">&nbsp;&nbsp;&nbsp; Por favor digite um repositorio &nbsp;&nbsp;&nbsp; </span>
                                     : null}
-                                {!emptyRepo ?
+                                {!this.props.emptyRepo ?
                                     <span className="inputNull">&nbsp;&nbsp;&nbsp; O repositorio não existe &nbsp;&nbsp;&nbsp;</span>
                                     : null}
-                                {!mess ?
-                                    <span className="inputNull">&nbsp;&nbsp;&nbsp; já tem esse repositório &nbsp;&nbsp;&nbsp;</span>
+                                {!this.props.messRepided ?
+                                    <span className="inputNull" >&nbsp;&nbsp;&nbsp; já tem esse repositório &nbsp;&nbsp;&nbsp;</span >
                                     : null}
                             </strong></p>
                             <div className="box___title">
