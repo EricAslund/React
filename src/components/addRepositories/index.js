@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import { Button, Form } from "semantic-ui-react";
+import { bindActionCreators } from "redux";
 import './style.css';
+import { Creators as RepositoryActions } from "../../store/ducks/repositores";
+import { connect } from 'react-redux';
 
 // import { Container } from './styles';
 
 class addRepositories extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            input: '',
-            shown: true,
+    state = {
+        input: '',
+        shown: true,
 
-        };
     }
 
     handleSubmit = async (event) => {
         event.preventDefault();
+        this.props.clearRepositor();
         if (this.state.input.length === 0) {
             this.setState({ shown: !this.state.shown })
             setTimeout(() => {
@@ -23,7 +24,8 @@ class addRepositories extends Component {
             }, 3000);
             return;
         } else {
-            this.props.addRepository(this.state.input)
+
+            this.props.submitRepositor(this.state.input);
         }
     }
 
@@ -39,13 +41,14 @@ class addRepositories extends Component {
                     <Form.Group widths="equal">
                         <div className="field">
                             <p className="pMassage"><strong>
+                                {console.log('input', this.props.state)}
                                 {!shown ?
                                     <span className="inputNull">&nbsp;&nbsp;&nbsp; Por favor digite um repositorio &nbsp;&nbsp;&nbsp; </span>
                                     : null}
-                                {!this.props.emptyRepo ?
+                                {!this.props.state.repositores.emptyRepo ?
                                     <span className="inputNull">&nbsp;&nbsp;&nbsp; O repositorio não existe &nbsp;&nbsp;&nbsp;</span>
                                     : null}
-                                {!this.props.messRepided ?
+                                {!this.props.state.repositores.mess ?
                                     <span className="inputNull" >&nbsp;&nbsp;&nbsp; já tem esse repositório &nbsp;&nbsp;&nbsp;</span >
                                     : null}
                             </strong></p>
@@ -58,7 +61,7 @@ class addRepositories extends Component {
                                     </svg>
                                     <label>Repositórios</label><br />
                                 </div>
-                                <span className="counter"><strong>{this.props.counting}</strong> </span>
+                                <span className="counter"><strong>{this.props.state.repositores.listRepos.length}</strong> </span>
                             </div>
                             <div className="box__input">
                                 <input type="text" placeholder="facebook/react" name="Nome" onChange={evento => this.setState({ input: evento.target.value })} />
@@ -70,6 +73,13 @@ class addRepositories extends Component {
             </div>
         )
     }
-};
+}
+const mapStateToProps = state => ({
+    state: state
+});
 
-export default addRepositories;
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(RepositoryActions, dispatch);
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(addRepositories);
